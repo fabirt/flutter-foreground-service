@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Foreground Service',
       home: HomePage(),
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+      theme: ThemeData.from(
+        colorScheme: const ColorScheme.dark(),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -6,6 +7,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static const _platform =
+      const MethodChannel('com.fabirt.flutter_foreground_service/channel');
+
+  void _showToast() {
+    _platform.invokeMethod(
+      'showToast',
+      <dynamic, dynamic>{'message': 'Hola desde Flutter'},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,8 +24,17 @@ class _HomePageState extends State<HomePage> {
         title: Text('Flutter Foreground Service'),
       ),
       body: Center(
-        child: Container(
-          child: Text('Hello World'),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            MaterialButton(
+              onPressed: _showToast,
+              textColor: Theme.of(context).accentColor,
+              child: Text(
+                'Show Toast'.toUpperCase(),
+              ),
+            ),
+          ],
         ),
       ),
     );
