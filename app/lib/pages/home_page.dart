@@ -7,13 +7,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const _platform =
+  static const _channel =
       const MethodChannel('com.fabirt.flutter_foreground_service/channel');
 
   @override
   void initState() {
     super.initState();
-    _platform.setMethodCallHandler(_onForegroundServiceCallback);
+    _channel.setMethodCallHandler(_onForegroundServiceCallback);
   }
 
   Future<void> _onForegroundServiceCallback(MethodCall call) async {
@@ -23,25 +23,27 @@ class _HomePageState extends State<HomePage> {
       case "onStopped":
         break;
       case "onServiceMethodCallback":
+        debugPrint('onServiceMethodCallback  WAS CALLED!!!!!');
         break;
       default:
+        debugPrint('something  WAS CALLED!!!!!');
         break;
     }
   }
 
   void _showToast() {
-    _platform.invokeMethod(
+    _channel.invokeMethod(
       'showToast',
       <dynamic, dynamic>{'message': 'Hi from Flutter!'},
     );
   }
 
   void _startService() {
-    _platform.invokeMethod('startToastService');
+    _channel.invokeMethod('startToastService');
   }
 
   void _stopService() {
-    _platform.invokeMethod('stopToastService');
+    _channel.invokeMethod('stopToastService');
   }
 
   @override

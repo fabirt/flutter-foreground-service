@@ -3,16 +3,13 @@ package com.fabirt.flutter_foreground_service
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.os.Handler
-import android.os.IBinder
-import android.os.Looper
+import android.os.*
 import androidx.core.app.NotificationCompat
 
 const val ON_GOING_NOTIFICATION = 1
 
 class FlutterService : Service() {
-    lateinit var mainHandler: Handler
+    private lateinit var mainHandler: Handler
 
     private val periodicTask = object : Runnable {
         override fun run() {
