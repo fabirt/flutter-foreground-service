@@ -1,5 +1,6 @@
 package com.fabirt.flutter_foreground_service
 
+import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -11,6 +12,12 @@ class MainActivity : FlutterActivity() {
     private val channel = "com.fabirt.flutter_foreground_service/channel"
     private lateinit var callbackChannel: MethodChannel
 
+    companion object {
+         fun showToast(context: Context, message: String?) {
+            Toast.makeText(context, message ?: "Hola Android", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         callbackChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, channel).apply {
@@ -18,7 +25,7 @@ class MainActivity : FlutterActivity() {
                 when (call.method) {
                     "showToast" -> {
                         val message: String? = call.argument("message")
-                        showToast(message)
+                        showToast(this@MainActivity, message)
                         result.success(null)
                     }
                     "startToastService" -> {
@@ -35,9 +42,6 @@ class MainActivity : FlutterActivity() {
         }
     }
 
-    private fun showToast(message: String?) {
-        Toast.makeText(this, message ?: "Hola Android", Toast.LENGTH_SHORT).show()
-    }
 
     private fun startToastService() {
         Intent(this, FlutterService::class.java).also {

@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   void _showToast() {
     _platform.invokeMethod(
       'showToast',
-      <dynamic, dynamic>{'message': 'Hola desde Flutter'},
+      <dynamic, dynamic>{'message': 'Hi from Flutter!'},
     );
   }
 
