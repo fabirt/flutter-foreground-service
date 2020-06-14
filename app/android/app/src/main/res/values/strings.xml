@@ -4,4 +4,5 @@
     <string name="fg_service_notification_channel">ServiceNotificationChannel</string>
     <string name="fg_service_notification_channel_name">Service notification channel</string>
     <string name="fg_service_notification_channel_description">Service notification channel description</string>
+    <string name="alarm_text">Wake Up!!!</string>
 </resources>

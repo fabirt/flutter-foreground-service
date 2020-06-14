@@ -46,11 +46,27 @@ class _HomePageState extends State<HomePage> {
     _channel.invokeMethod('stopToastService');
   }
 
+  void _setupAlarm() {
+    _channel.invokeMethod('setupAlarm');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Flutter Foreground Service'),
+      ),
+      floatingActionButton: Builder(
+        builder: (context) {
+          return FloatingActionButton(
+            onPressed: () {
+              final snackbar = SnackBar(content: Text('Alarm will fire in a moment'));
+              Scaffold.of(context).showSnackBar(snackbar);
+              _setupAlarm();
+            },
+            child: Icon(Icons.alarm, color: Colors.white),
+          );
+        },
       ),
       body: Center(
         child: Column(
