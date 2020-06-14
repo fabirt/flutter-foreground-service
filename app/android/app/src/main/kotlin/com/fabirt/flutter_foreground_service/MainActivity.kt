@@ -13,8 +13,6 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
-const val CHANNEL_NAME = "com.fabirt.flutter_foreground_service/channel"
-
 class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
     private lateinit var callbackChannel: MethodChannel
 
@@ -26,7 +24,7 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        callbackChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL_NAME).apply {
+        callbackChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, METHOD_CHANNEL_NAME).apply {
             setMethodCallHandler(this@MainActivity)
         }
     }
@@ -73,13 +71,13 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
-                    SystemClock.elapsedRealtime() + 8000,
+                    SystemClock.elapsedRealtime() + 10000,
                     pendingIntent
             )
         } else {
             alarmManager.set(
                     AlarmManager.RTC_WAKEUP,
-                    SystemClock.elapsedRealtime() + 8000,
+                    SystemClock.elapsedRealtime() + 10000,
                     pendingIntent
             )
         }

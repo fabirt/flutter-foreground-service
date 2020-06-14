@@ -1,14 +1,13 @@
 package com.fabirt.flutter_foreground_service
 
 import android.app.*
-import android.content.Context
 import android.content.Intent
 import android.os.*
 import androidx.core.app.NotificationCompat
 
-const val ON_GOING_NOTIFICATION = 1
 
 class FlutterService : Service() {
+    private val channelId: String = "Service notification channel"
     private lateinit var mainHandler: Handler
 
     private val periodicTask = object : Runnable {
@@ -24,12 +23,13 @@ class FlutterService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        val notificationHelper = NotificationHelper(this)
+        notificationHelper.createNotificationChannel(channelId)
         mainHandler = Handler(Looper.getMainLooper())
-        createNotificationChannel()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        startForeground(ON_GOING_NOTIFICATION, createNotification())
+        startForeground(ON_GOING_SERVICE_NOTIFICATION, createNotification())
         mainHandler.post(periodicTask)
         return START_NOT_STICKY
     }
@@ -45,8 +45,6 @@ class FlutterService : Service() {
                     PendingIntent.getActivity(this, 0, notificationIntent, 0)
                 }
 
-        val channelId = getString(R.string.fg_service_notification_channel)
-
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
                 .setContentTitle("Awesome service running")
                 .setContentText("Keep calm... this service is awesome")
@@ -56,21 +54,5 @@ class FlutterService : Service() {
                 .setOngoing(true)
 
         return notificationBuilder.build()
-
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = getString(R.string.fg_service_notification_channel)
-            val name = getString(R.string.fg_service_notification_channel_name)
-            val descriptionText = getString(R.string.fg_service_notification_channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(channelId, name, importance).apply {
-                description = descriptionText
-            }
-            val notificationManager: NotificationManager =
-                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
     }
 }

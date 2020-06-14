@@ -16,11 +16,11 @@ class AlarmActivity : AppCompatActivity() {
         setContentView(R.layout.activity_alarm)
         alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
         player = MediaPlayer.create(this, alert)
-        player.start()
+        // player.start()
     }
 
     override fun onDestroy() {
-        player.stop()
+        // player.stop()
         super.onDestroy()
     }
 }
