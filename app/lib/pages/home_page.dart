@@ -60,11 +60,11 @@ class _HomePageState extends State<HomePage> {
         builder: (context) {
           return FloatingActionButton(
             onPressed: () {
-              final snackbar = SnackBar(content: Text('Alarm will fire in a moment'));
+              final snackbar = SnackBar(content: Text('Your alarm will fire in a moment'));
               Scaffold.of(context).showSnackBar(snackbar);
               _setupAlarm();
             },
-            child: Icon(Icons.alarm, color: Colors.white),
+            child: Icon(Icons.alarm),
           );
         },
       ),
