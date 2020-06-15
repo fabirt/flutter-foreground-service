@@ -1,4 +1,4 @@
-# flutter_foreground_service
+# Flutter Android Service
 
 A new Flutter project.
 

@@ -34,7 +34,7 @@ class FlutterAlarmReceiver : BroadcastReceiver() {
         val style = NotificationCompat.MessagingStyle(person).addMessage(message)
         val notificationBuilder = NotificationCompat.Builder(context, channelId)
                 .setContentTitle("This is your alarm")
-                .setContentText("Please wake up")
+                .setContentText("Please wake up!")
                 //.setStyle(style)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher))
